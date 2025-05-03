@@ -75,7 +75,7 @@ export default function Home() {
             <div className="space-y-2">
               <h1 className="text-2xl font-bold text-foreground">Scriptify JS Compiler</h1>
               <p className="text-sm text-muted-foreground">
-                Write and execute JavaScript code in real-time with console output.
+              Write and run JavaScript code with console output.
               </p>
             </div>
           </motion.div>

@@ -6,7 +6,7 @@ const outfit = Outfit({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Scriptify js Compiler',
-  description: 'A modern JavaScript compiler with real-time output',
+  description: 'A modern JavaScript compiler',
 };
 
 export default function RootLayout({
