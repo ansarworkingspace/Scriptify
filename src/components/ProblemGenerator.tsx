@@ -351,10 +351,10 @@ console.log(${functionName}(${currentProblem.example}));
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setIsOpen(true)}
-                className="flex items-center space-x-2 rounded-lg border-2 border-purple-500 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-500 hover:bg-purple-500/20"
+                className="flex items-center space-x-1 rounded-md border border-purple-500 bg-purple-500/10 px-2 py-1 text-xs font-medium text-purple-500 hover:bg-purple-500/20"
             >
-                <Brain className="h-5 w-5" />
-                <span>AI Problem Generator</span>
+                <Brain className="h-3.5 w-3.5" />
+                <span>Problems</span>
             </motion.button>
 
             <AnimatePresence>
