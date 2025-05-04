@@ -14,7 +14,7 @@ export const Terminal: FC = () => {
                 </div>
                 <div className="flex items-center gap-2">
                     {/* Terminal Position Controls */}
-                    <div className="flex items-center gap-1 mr-2">
+                    {/* <div className="flex items-center gap-1 mr-2">
                         <button
                             onClick={() => setTerminalPosition('bottom')}
                             className={`p-1 rounded hover:bg-gray-700 ${terminalPosition === 'bottom' ? 'text-primary' : 'text-muted-foreground'}`}
@@ -36,7 +36,7 @@ export const Terminal: FC = () => {
                         >
                             <ArrowRight className="h-4 w-4" />
                         </button>
-                    </div>
+                    </div> */}
                     <button 
                         onClick={clearOutput}
                         className="text-muted-foreground hover:text-white transition-colors"

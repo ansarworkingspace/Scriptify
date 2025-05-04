@@ -167,7 +167,7 @@ export default function Home() {
             </motion.button>
             <ProblemGenerator />
             {/* Add Terminal Position Toggle here */}
-            <TerminalPositionToggle />
+            {/* <TerminalPositionToggle /> */}
             <ThemeToggle />
           </div>
         </div>
