@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback,useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { CodeEditor } from '@/components/CodeEditor';
 import { Terminal } from '@/components/Terminal';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -24,11 +24,32 @@ export default function Home() {
         setTerminalSize
     } = useEditorStore();
 
+    const runCode = useCallback(async () => {
+        clearOutput();
+        setIsRunning(true);
+
+        try {
+            const worker = new Worker(new URL('../lib/code-worker.ts', import.meta.url));
+
+            worker.onmessage = (e) => {
+                const { success, output, error } = e.data;
+                setOutput(output);
+                setIsRunning(false);
+                worker.terminate();
+            };
+
+            worker.postMessage(code);
+        } catch (error: any) {
+            setOutput([`Error: ${error.message}`]);
+            setIsRunning(false);
+        }
+    }, [code, setOutput, setIsRunning, clearOutput]);
+
     // Add useEffect for keyboard shortcut
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-                e.preventDefault(); // Prevent default save behavior
+                e.preventDefault();
                 if (!isRunning) {
                     runCode();
                 }
@@ -37,7 +58,7 @@ export default function Home() {
 
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [isRunning]); // Remove runCode from dependencies since it's defined later
+    }, [runCode, isRunning]);
 
     const handleResize = useCallback((delta: number) => {
         const containerSize = terminalPosition === 'bottom'
@@ -60,27 +81,7 @@ export default function Home() {
         setTerminalSize(Math.min(Math.max(newPercentage, 10), 90));
     }, [terminalPosition, terminalSize, setTerminalSize]);
 
-  const runCode = useCallback(async () => {
-    clearOutput();
-    setIsRunning(true);
-
-    try {
-      const worker = new Worker(new URL('../lib/code-worker.ts', import.meta.url));
-
-      worker.onmessage = (e) => {
-        const { success, output, error } = e.data;
-        setOutput(output);
-        setIsRunning(false);
-        worker.terminate();
-      };
-
-      worker.postMessage(code);
-    } catch (error: any) {
-      setOutput([`Error: ${error.message}`]);
-      setIsRunning(false);
-    }
-  }, [code, setOutput, setIsRunning, clearOutput]);
-
+ 
   // Calculate styles based on terminal position
   const getLayoutStyles = () => {
     if (terminalPosition === 'bottom') {
